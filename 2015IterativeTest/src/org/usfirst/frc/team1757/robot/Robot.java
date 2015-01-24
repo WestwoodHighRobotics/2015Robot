@@ -1,7 +1,7 @@
 package org.usfirst.frc.team1757.robot;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
-
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Timer;
@@ -23,6 +23,7 @@ public class Robot extends IterativeRobot {
 	Joystick gamepad;
 	Compressor compressor;
 	Solenoid solenoid;
+	CameraServer server;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -32,9 +33,13 @@ public class Robot extends IterativeRobot {
     public void robotInit() {
     	gamepad = new Joystick(0);
     	drive = new RobotDrive(0,1);
-    	compressor = new Compressor(0);
+    	compressor = new Compressor();
     	solenoid = new Solenoid(0);
     	compressor.start();
+    	server = CameraServer.getInstance();
+        server.setQuality(50);
+        //the camera name (ex "cam0") can be found through the roborio web interface
+        server.startAutomaticCapture("cam0");
     }
     
     /**
